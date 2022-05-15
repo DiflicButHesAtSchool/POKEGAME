@@ -39,9 +39,11 @@ global move_seel
 #asks user to see the poke dex for every single pokemon to get there number
 
 print('\n')
+noice = str(input('do you want to radomize your moves? Y/N: '))
 choice = str(input('Would you like a random Pokemon? ("youll select otherwise") Y/N: '))
 print('\n')
 
+#dictionary slots for stats names types sprite and moves that i have for my pokemon
 pslot1 = {
     "pokemon":[],
     "moveset":[
@@ -140,7 +142,7 @@ Enemy = {
     "speed":[],
     "image":[]
 }
-def formula(x):
+def formula(x): #stat formula and equation , actually one of the easier things i did
     hpEV = int(random.randint(1,4))
     hpIV = int(random.randint(1,15))
     x['hp'][0] = str(floor(0.01 *(2 * int(x['hp'][0]) + hpIV + floor(0.25 *  hpEV))*80)+ 80 + 10)
@@ -162,7 +164,7 @@ def formula(x):
 
 
 
-def stats(x,y):
+def stats(x,y): #pokemon state locatior and appender
     x['hp'].append(str(pkmn[y]['base']['HP']))
     x['attack'].append(str(pkmn[y]['base']['Attack']))
     x['defense'].append(str(pkmn[y]['base']['Defense']))
@@ -171,7 +173,7 @@ def stats(x,y):
     x['speed'].append(str(pkmn[y]['base']['Speed']))
     formula(x)
 
-def Poke_rando(x,idnum):
+def Poke_rando(x,idnum): #not actially a random pokemon , just selects a pokemon given the number either randomized or selected by user
     x['pokemon'].append(idnum + 1)
     x['pokemon'].append(str(pkmn[idnum]['name']['english']))
     y = idnum
@@ -181,7 +183,6 @@ def Poke_rando(x,idnum):
     
 
 possmoves = []
-
 def SelectMoves(PKMN_type):
     z = 0
     for x in moves: #checks for every move 
@@ -190,36 +191,33 @@ def SelectMoves(PKMN_type):
             z = z + 3
         for t in PKMN_type['type']: #looks for both types of in every pokemon
             if(t == x['type']):         #checks if your pokemon tying is the same type as the move 
-                if choice == 'N':
+                if noice == 'N':
                     print(str(z) + " " + str(x["ename"]) + 'Power: ' +str(x['power']) + ' Accuracy: ' + str(x['accuracy']))
                 possmoves.append(x['id'])
     
-def calMove(pokemon_class):
+def calMove(pokemon_class): #selects random move 4 times
     for i in range(4):
         mid = random.choice(possmoves)
         if mid > 590:
             pokemon_class['moveset'].append(moves[mid - 4]) #the moves skip and dont show up as the correct number so to correct the numbers we add one for every instance of above 590 and subtract 5 if they are below 590
         if mid < 590:
             pokemon_class['moveset'].append(moves[mid - 1])  
-    return possmoves
-def makeMove(pokemon_class, movenu):
+    possmoves.clear()
+def makeMove(pokemon_class, movenu): #selection for moves based on manual labor
     if movenu >= 590:
         pokemon_class['moveset'].append(moves[movenu - 4])
     if movenu <= 590:
         pokemon_class['moveset'].append(moves[movenu -1])  
-    return possmoves
+    possmoves.clear()
 
-if choice == 'Y':
+if choice == 'Y': #randomly selects a pokemon out of 808 (gen 8 doesnt have stats in there dicts)
     global idnum
     idnum = random.randint(0,808)
     Poke_rando(pslot1,idnum)
     print('your random pokemon is: ' + str(pslot1['pokemon']))
     print(pslot1)
     SelectMoves(pkmn[idnum])
-
-
-
-def manualPkmn(slot):
+def manualPkmn(slot): #manualy select a pokemon
     dex = str(input('would you like to see the entire poke dex? Y/N: '))
     if dex == 'Y':
         for x in range(809):
@@ -228,21 +226,21 @@ def manualPkmn(slot):
     dexno = int(input("enter pokedex number for pokemon you want to use: "))
     dexno = dexno - 1
     Poke_rando(slot,dexno)
-def manualMoves(slot):
+    SelectMoves(pkmn[dexno])
+def manualMoves(slot): #manual selection of moves
     SelectMoves(pkmn[dexno])
     print('select from these moves')
     for x in range(4):
         moved = int(input('move number: '))
         makeMove(slot, moved)
 
-if choice == 'N':
+if choice == 'N': #runs function to manually select a pokemon and asks if you random moves
     manualPkmn(pslot1)
-choice = str(input('do you want to radomize your moves? Y/N: '))
+
     
-if choice == 'Y':       #auto picks moves for you based on the type of your pokemon
-    SelectMoves(pkmn[idnum])
+if noice == 'Y':       #auto picks moves for you based on the type of your pokemon
     calMove(pslot1)
-if choice == 'N':       #allows you to select a move manually
+if noice == 'N':       #allows you to select a move manually and shows the moves only by the type of your pokemon
     manualMoves(pslot1)
     choice = 'Y'
     
@@ -272,7 +270,8 @@ class mv(Button): #move buttons
 def dictionaryclear(slot): # clears a dictionary so there can be a re roll or re write
     for y in slot:
         slot[y].clear()
-def createEnemy():
+def createEnemy(): #defines how the enemy's states are created
+    noice = 'enmpy'
     idnum = random.randint(0,809)
     Poke_rando(Enemy,idnum) 
     SelectMoves(pkmn[idnum]) 
@@ -281,10 +280,10 @@ def createEnemy():
 #make this into a list
 global activePokemon
 activePokemon = pslot1
-
+print(activePokemon['pokemon'])
 startV1 = str(input('\n''Your ' + str(pslot1['pokemon'][1]) + ' is ' + str(pslot1['type'][0]) + " and knows " + str(pslot1['moveset'][0]['ename']) + " " + str(pslot1['moveset'][1]['ename']) + " " + str(pslot1['moveset'][2]['ename']) +  " " + str(pslot1['moveset'][3]['ename']) + "are you ready to start your adventure Y/N"))
 
-if startV1 == 'Y': 
+if startV1 == 'Y': #this is how the game starts and if you dont want to start you can pick your pokemon again
     createEnemy()
     print('you will be fighting ' + Enemy['pokemon'][1])
 if startV1 == "N":
@@ -321,9 +320,9 @@ def ridof(x,y,z,a): # checks for a entity and makes it disapear from the screen 
     y.disabled = True
     z.disabled = True
     a.disabled = True
-def ridrid():
+def ridrid(): #used in a button because i couldnt figure out how to use it correctly with defined objects
     ridof2(move1, move2, move3, move4,Back)
-def ridridrid():
+def ridridrid(): #if game ever needs to return values back like health this is the code needed (i think)
     ridof2(move1, move2, move3, move4,Back)
     Playagain.disabled = True
     Playagain.visible_self = False
@@ -334,7 +333,7 @@ def ridridrid():
     createEnemy()
     Hpe.value = Enemy['Hp']
     Hp1.value = pslot1['Hp']
-def ridof2(x, y, z, a,b):
+def ridof2(x, y, z, a,b): #a disabler for instances that need to go to the first menu 
     x.visible_self = False
     x.text = ' '
     y.visible_self = False
@@ -351,7 +350,7 @@ def ridof2(x, y, z, a,b):
     b.visible_self = False
     b.text = ' '
     ofrid()
-def ofrid():
+def ofrid(): #enables first menu button screen
     Attack.visible_self = True
     Attack.text = 'Attack'
     Party.visible_self = True
@@ -364,10 +363,13 @@ def ofrid():
     Item.disabled = False
     Swap.disabled = False
     Party.disabled = False
+
 def blank(x, m):
     x = 1
     print('hi')
     speedCal(pslot1,Enemy,m,Hpe)
+
+#defines how to make the move buttons and finds what color they need to be in the game themselves
 def moves():
     global move1 
     global move2
@@ -551,16 +553,24 @@ def Replace():
 
 
     
-
+#these are the buttons with locations functions that read text and action that impact the game
 Attack = UI("Attack", .65, -.25,Fight)
 Item = UI("Item", .5, -.25,Object)
 Swap = UI("Swap", .5, -.40,Replace)
 Party = UI("Party", .65, -.40,End)
 
 
-
+#calls the pokemon image found on the internet and stores it as a png and so it can be used in game
 PKMNACTIVE = pslot1['image'][0]
-urllib.request.urlretrieve(
+"""
+if activePokemon['pokemon'][0] < 649:
+    spriteChange = str(input('would you like to opt in a new sprite? Y/N: '))
+    spriteChange = spriteChange.upper()
+    if spriteChange == 'Y':
+        PKMNACTIVE = "https://img.pokemondb.net/sprites/black-white/back-normal/" + str(activePokemon['pokemon'][1]).lower() + ".png"
+"""
+
+urllib.request.urlretrieve( 
             PKMNACTIVE,
             "gfg.png")
 ACTIVEENEMY = Enemy['image'][0]
@@ -571,7 +581,8 @@ urllib.request.urlretrieve(
 
 
 
-class Pokemon(Button): #this the code that allows my pokemon to spawn
+
+class Pokemon(Button): #this the code that allows my pokemon to spawn and made in a way so i dont have to repeat code
     def __init__(self, x,y,z,pshape, ptexture, pscale ):
         position = x,y,z
         super().__init__(
@@ -584,8 +595,8 @@ class Pokemon(Button): #this the code that allows my pokemon to spawn
             scale = pscale
         )
         
-
-slot1 = Pokemon(-2,0.25,-5,'cube','gfg.png',2.5)
+#pokemon seen on screen functions
+slot1 = Pokemon(-2,0.20,-5,'cube','gfg.png',2.5)
 Enemyed = Pokemon(4,1.75,3,'cube','ghg.png',1.5)
 
 
