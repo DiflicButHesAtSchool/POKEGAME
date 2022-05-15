@@ -394,8 +394,8 @@ def moves():
             if x['name'] == 'Flying':
                 mcolor = color.white10
             if x['name'] == 'Dark':
-                mcolor = color.light_grey
-            if x['name'] == 'Psycic':
+                mcolor = color.light_gray
+            if x['name'] == 'Psychic':
                 mcolor = color.salmon
             if x['name'] == 'Bug':
                 mcolor = color.lime
@@ -404,9 +404,9 @@ def moves():
             if x['name'] == 'Fairy':
                 mcolor = color.pink
             if x['name'] == 'Steel':
-                mcolor = color.grey
+                mcolor = color.gray
             if x['name'] == 'Dragon':
-                mcolor = color.dark_blue
+                mcolor = color.blue
             if x['name'] == 'Normal':
                 mcolor = color.white
             if x['name'] == 'Fighting':
@@ -432,8 +432,8 @@ def moves():
             if x['name'] == 'Flying':
                 m3color = color.white10
             if x['name'] == 'Dark':
-                m3color = color.light_grey
-            if x['name'] == 'Psycic':
+                m3color = color.light_gray
+            if x['name'] == 'Psychic':
                 m3color = color.salmon
             if x['name'] == 'Bug':
                 m3color = color.lime
@@ -442,7 +442,7 @@ def moves():
             if x['name'] == 'Fairy':
                 m3color = color.pink
             if x['name'] == 'Steel':
-                m3color = color.grey
+                m3color = color.gray
             if x['name'] == 'Dragon':
                 m3color = color.blue
             if x['name'] == 'Normal':
@@ -470,8 +470,8 @@ def moves():
             if x['name'] == 'Flying':
                 m2color = color.white10
             if x['name'] == 'Dark':
-                m2color = color.light_grey
-            if x['name'] == 'Psycic':
+                m2color = color.light_gray
+            if x['name'] == 'Psychic':
                 m2color = color.salmon
             if x['name'] == 'Bug':
                 m2color = color.lime
@@ -480,7 +480,7 @@ def moves():
             if x['name'] == 'Fairy':
                 m2color = color.pink
             if x['name'] == 'Steel':
-                m2color = color.grey
+                m2color = color.gray
             if x['name'] == 'Dragon':
                 m2color = color.blue
             if x['name'] == 'Normal':
@@ -508,8 +508,8 @@ def moves():
             if x['name'] == 'Flying':
                 m1color = color.white10
             if x['name'] == 'Dark':
-                m1color = color.light_grey
-            if x['name'] == 'Psycic':
+                m1color = color.light_gray
+            if x['name'] == 'Psychic':
                 m1color = color.salmon
             if x['name'] == 'Bug':
                 m1color = color.lime
@@ -518,7 +518,7 @@ def moves():
             if x['name'] == 'Fairy':
                 m1color = color.pink
             if x['name'] == 'Steel':
-                m1color = color.grey
+                m1color = color.gray
             if x['name'] == 'Dragon':
                 m1color = color.blue
             if x['name'] == 'Normal':
